@@ -11,3 +11,4 @@ To run it locally, simply run `yarn && yarn dev`.
 - I would allow a user to delete a playlist
 - I would allow a user to edit the name of the playlist.
 - I would ensure things are responsive and fucntional on mobile and multiple browsers
+- I would add unit tests
