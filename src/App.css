@@ -6,4 +6,61 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.songs-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid yellow;
+}
+
+/*  main songs table */
+/* App.css or Songs.css */
+
+/* General table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Table headers */
+thead th {
+  background-color: #242424;
+  padding: 10px 15px;
+  font-weight: bold;
+}
+
+/* Table rows */
+tbody tr {
+  border-bottom: 1px solid #1a1a1a;
+}
+
+tbody tr.selected {
+  background-color: blue;
+}
+
+tbody tr:hover {
+  cursor: pointer;
+  background-color: #1a1a1a;
+}
+
+/* Table cells */
+td {
+  padding: 10px 15px;
+}
+
+/* Empty state styling */
+.songs-container div {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+  font-style: italic;
 }
