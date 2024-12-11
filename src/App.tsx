@@ -52,6 +52,7 @@ function App() {
 
         setSongs(mapResponseToSongs(json.songs));
       } catch (error) {
+        // TODO: present error to user
         console.error("Failed to fetch songs:", error);
       } finally {
         setLoading(false);
