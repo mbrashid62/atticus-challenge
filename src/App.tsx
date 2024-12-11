@@ -27,6 +27,7 @@ function mapResponseToSongs(input: unknown): Song[] {
     artist: String(item.artist || ""),
     album: String(item.album || ""),
     song_length: String(item.song_length || ""),
+    // add this property to make CRUD operations easier
     isSelected: false,
   }));
 }
@@ -70,10 +71,6 @@ function App() {
   );
 
   const handleCreatePlaylist = useCallback((playlist: Playlist) => {
-    setPlaylists((prev) => {
-      return [...prev, playlist];
-    });
-
     setSongs((prev) => {
       return prev.map((s) => {
         return {
@@ -82,12 +79,22 @@ function App() {
         };
       });
     });
+
+    setPlaylists((prev) => {
+      return [...prev, playlist];
+    });
   }, []);
+
+  if (loading) {
+    <div>
+      <h1>Loading...</h1>
+    </div>;
+  }
 
   if (!loading && songs.length === 0) {
     return (
       <div>
-        <h1>No songs. Please refresh the page.</h1>
+        <h1>No songs. Sit tight.</h1>
       </div>
     );
   }
@@ -100,6 +107,21 @@ function App() {
     );
   };
 
+  const handleUpdatePlaylist = (playlistToUpdate: Playlist, song: Song) => {
+    setPlaylists((prevPlaylists) =>
+      prevPlaylists.map((playlist) => {
+        if (playlist.name === playlistToUpdate.name) {
+          return {
+            ...playlist,
+            songs: [...playlist.songs, song],
+          };
+        }
+
+        return playlist; // No changes for other playlists
+      })
+    );
+  };
+
   return (
     <div className="app-container">
       <h1>Song Data</h1>
@@ -109,7 +131,14 @@ function App() {
         onCreatePlaylist={handleCreatePlaylist}
       />
       {playlists.map((playlist) => {
-        return <PlaylistContainer key={playlist.name} playlist={playlist} />;
+        return (
+          <PlaylistContainer
+            key={playlist.name}
+            playlist={playlist}
+            allSongs={songs}
+            updatePlaylist={handleUpdatePlaylist}
+          />
+        );
       })}
       {loading && <span>loading...</span>}
     </div>
